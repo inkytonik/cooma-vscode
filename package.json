@@ -1,0 +1,26 @@
+{
+    "name": "cooma",
+    "displayName": "cooma",
+    "description": "Cooma Language Support",
+    "version": "1.0.0",
+    "publisher": "inkytonik",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "cooma",
+            "aliases": ["Cooma", "cooma"],
+            "extensions": [".cooma"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "cooma",
+            "scopeName": "source.cooma",
+            "path": "./syntaxes/cooma.tmLanguage.json"
+        }]
+    }
+}

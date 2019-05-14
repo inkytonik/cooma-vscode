@@ -1,0 +1,62 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Cooma",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#keywords" },
+		{ "include": "#names" },
+		{ "include": "#strings" }
+	  ],
+	  "repository": {
+		"comments": {
+		  "patterns": [
+			{
+			  "begin": "/\\*",
+			  "end": "\\*/",
+			  "name": "comment.block.syntax",
+			  "patterns": [
+				{
+				  "include": "#comments"
+				},
+				{
+				  "match": "(?!/\\*)."
+				}
+			  ]
+			},
+			{
+			  "match": "//.*$\n?",
+			  "name": "comment.line.double-slash.syntax"
+			}
+		  ]
+		},
+		"keywords": {
+		  "patterns": [
+			{
+			  "match": "\\b(fun|val)\\b",
+			  "name": "keyword.syntax"
+			}
+		  ]
+		},
+		"names": {
+		  "patterns": [
+			{
+			  "match": "\\b\\p{Upper}\\w*\\b",
+			  "name": "entity.name.class"
+			}
+		  ]
+		},
+		"strings": {
+		  "patterns": [
+			{
+			  "match": "\"[^\"]+\"",
+			  "name": "string.quoted.double.syntax"
+			},
+			{
+			  "match": "'[^']+'",
+			  "name": "string.quoted.single.syntax"
+			}
+		  ]
+		}
+	},
+	"scopeName": "source.cooma"
+}
