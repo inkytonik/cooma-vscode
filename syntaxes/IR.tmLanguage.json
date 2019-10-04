@@ -1,0 +1,27 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "IR",
+	"patterns": [
+		{ "include": "#keywords" },
+		{ "include": "#strings" }
+	  ],
+	  "repository": {
+		"keywords": {
+		  "patterns": [
+			{
+			  "match": "(\\b(case|fun|halt|letc|letf|letv)\\b)|(\\$halt)",
+			  "name": "keyword.syntax"
+			}
+		  ]
+		},
+		"strings": {
+		  "patterns": [
+			{
+			  "match": "\"[^\"]+\"",
+			  "name": "string.quoted.double.syntax"
+			}
+		  ]
+		}
+	},
+	"scopeName": "source.IR"
+}

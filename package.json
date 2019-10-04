@@ -15,6 +15,18 @@
     ],
     "main": "./out/extension",
     "contributes": {
+        "grammars": [
+            {
+                "language": "cooma",
+                "scopeName": "source.cooma",
+                "path": "./syntaxes/cooma.tmLanguage.json"
+            },
+            {
+                "language": "IR",
+                "scopeName": "source.IR",
+                "path": "./syntaxes/IR.tmLanguage.json"
+            }
+        ],
         "languages": [
             {
                 "id": "cooma",
@@ -25,14 +37,18 @@
                 "extensions": [
                     ".cooma"
                 ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
+                "configuration": "./cooma-language-configuration.json"
+            },
             {
-                "language": "cooma",
-                "scopeName": "source.cooma",
-                "path": "./syntaxes/cooma.tmLanguage.json"
+                "id": "IR",
+                "aliases": [
+                    "IR",
+                    "IR"
+                ],
+                "extensions": [
+                    ".IR"
+                ],
+                "configuration": "./IR-language-configuration.json"
             }
         ]
     },
