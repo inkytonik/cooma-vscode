@@ -15,6 +15,64 @@
     ],
     "main": "./out/extension",
     "contributes": {
+        "commands": [
+            {
+                "category": "Cooma",
+                "command": "cooma.selectLinkedEditors",
+                "title": "Focus Product Editors"
+            },
+            {
+                "category": "Cooma",
+                "command": "cooma.restartServer",
+                "title": "Restart server"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Cooma",
+            "properties": {
+                "cooma.jar": {
+                    "type": "string",
+                    "default": "/some/path/cooma.jar",
+                    "description": "The full path of the Cooma assembly jar."
+                },
+                "cooma.java": {
+                    "type": "string",
+                    "default": "/usr/bin/java",
+                    "description": "The full path to the Java runtime."
+                },
+                "cooma.showIR": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show a pretty-printed version of the abstract syntax tree of the intermediate representation from the Cooma compiler."
+                },
+                "cooma.showIRTree": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show the abstract syntax tree of the intermediate representation from the Cooma compiler."
+                },
+                "cooma.showResult": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show a pretty-printed version of the program execution result."
+                },
+                "cooma.showSource": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show a pretty-printed version of the source abstract syntax tree from the Cooma compiler."
+                },
+                "cooma.showSourceTree": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show the source abstract syntax tree from the Cooma compiler."
+                },
+                "cooma.updateOnChange": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "By default, updates are processed when a relevant file is opened or saved. If this setting is true, they are also updated after each change."
+                }
+            }
+        },
         "grammars": [
             {
                 "language": "cooma",
@@ -25,6 +83,14 @@
                 "language": "IR",
                 "scopeName": "source.IR",
                 "path": "./syntaxes/IR.tmLanguage.json"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "cooma.selectLinkedEditors",
+                "key": "ctrl+alt+p",
+                "mac": "cmd+alt+p",
+                "when": "editorTextFocus && editorLangId == 'c'"
             }
         ],
         "languages": [

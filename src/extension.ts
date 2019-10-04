@@ -1,17 +1,22 @@
 'use strict';
 
-import { ExtensionContext } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient';
+import { commands, ExtensionContext, window, workspace } from 'vscode';
+import { ExitNotification, LanguageClient, LanguageClientOptions, ServerOptions, ShutdownRequest } from 'vscode-languageclient';
+import { Monto } from './monto';
 
 let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-    let java = "/usr/bin/java";
+    const settings = workspace.getConfiguration("cooma");
 
-    let args = [
-        "-classpath",
-        "/Users/asloane/Projects/Kiama/kiama/extras/target/scala-2.12/kiama-extras-assembly-2.3.0-SNAPSHOT-tests.jar",
-        "org.bitbucket.inkytonik.kiama.example.minijava.Main",
+    const java = settings.get("java", "/usr/bin/java").trim();
+    const jar = settings.get("jar", "cooma.jar").trim();
+    const classpath = jar;
+    const main = "org.bitbucket.inkytonik.cooma.Main";
+
+    const args = [
+        "-classpath", classpath,
+        main,
         "--server"
     ];
 
@@ -43,6 +48,20 @@ export function activate(context: ExtensionContext) {
         'Cooma Language Server',
         serverOptions,
         clientOptions
+    );
+
+    Monto.setup("cooma", context, client);
+
+    context.subscriptions.push(
+        commands.registerCommand(
+            'cooma.restartServer',
+            () => {
+                window.showInformationMessage('Cooma is restarting');
+                client.sendRequest(ShutdownRequest.type).then(() => {
+                    client.sendNotification(ExitNotification.type);
+                });
+            }
+        )
     );
 
     context.subscriptions.push(client.start());
