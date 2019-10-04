@@ -2,6 +2,7 @@
     "name": "cooma",
     "displayName": "cooma",
     "description": "Cooma Language Support",
+    "icon": "resources/cooma.png",
     "version": "0.1.0",
     "publisher": "inkytonik",
     "author": {
