@@ -2,13 +2,29 @@
     "name": "cooma",
     "displayName": "cooma",
     "description": "Cooma Language Support",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "publisher": "inkytonik",
+    "author": {
+        "name": "Anthony M. Sloane",
+        "email": "inkytonik@gmail.com",
+        "url": "https://bitbucket.org/inkytonik/"
+    },
+    "license": "MPL-2.0",
+    "homepage": "https://bitbucket.org/inkytonik/cooma-vscode",
+    "bugs": "https://bitbucket.org/inkytonik/cooma-vscode/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://bitbucket.org/inkytonik/cooma-vscode"
+    },
     "engines": {
         "vscode": "^1.30.0"
     },
     "categories": [
         "Programming Languages"
+    ],
+    "keywords": [
+        "capabilities",
+        "security"
     ],
     "activationEvents": [
         "onLanguage:cooma"
