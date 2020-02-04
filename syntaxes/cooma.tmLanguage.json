@@ -32,7 +32,7 @@
 		"keywords": {
 		  "patterns": [
 			{
-			  "match": "\\b(case|def|fun|match|val)\\b",
+			  "match": "\\b(case|def|fun|match|type|val)\\b",
 			  "name": "keyword.syntax"
 			}
 		  ]
