@@ -8,14 +8,14 @@
     "author": {
         "name": "Anthony M. Sloane",
         "email": "inkytonik@gmail.com",
-        "url": "https://bitbucket.org/inkytonik/"
+        "url": "https://github.com/inkytonik/"
     },
     "license": "MPL-2.0",
-    "homepage": "https://bitbucket.org/inkytonik/cooma-vscode",
-    "bugs": "https://bitbucket.org/inkytonik/cooma-vscode/issues",
+    "homepage": "https://github.com/inkytonik/cooma-vscode",
+    "bugs": "https://github.com/inkytonik/cooma-vscode/issues",
     "repository": {
         "type": "git",
-        "url": "https://bitbucket.org/inkytonik/cooma-vscode"
+        "url": "https://github.com/inkytonik/cooma-vscode"
     },
     "engines": {
         "vscode": "^1.30.0"
