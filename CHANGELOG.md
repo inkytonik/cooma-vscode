@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.3.0]
+
+- Move project to GitHub
+- Some security fixes
+
 ## [0.2.0]
 
 - Add type keyword
