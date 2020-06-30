@@ -10,9 +10,8 @@ Macquarie University
 
 ## Prerequisites
 
-You'll need the Cooma development source code (not public yet) and to
-use the `sbt assembly` command to make an all-in-one jar.
-The all-in-one jar should be created at `target/scala-2.12/cooma.jar` in your Cooma working directory.
+You'll need the Cooma development source code and to use the `sbt assembly` command to make an all-in-one jar.
+The all-in-one jar should be created at `target/scala-2.13/cooma.jar` in your Cooma working directory.
 
 ## Setup
 
