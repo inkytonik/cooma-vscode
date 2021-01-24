@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.5.0]
+
+- Fix wrong language in shortcut setting for selectLinkedEditors command
+- Sync title for selectLinkedEditors to "Select Linked Editors"
+
 ## [0.4.0]
 
 - Update dependencies

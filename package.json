@@ -36,7 +36,7 @@
       {
         "category": "Cooma",
         "command": "cooma.selectLinkedEditors",
-        "title": "Focus Product Editors"
+        "title": "Select Linked Editors"
       },
       {
         "category": "Cooma",
@@ -107,7 +107,7 @@
         "command": "cooma.selectLinkedEditors",
         "key": "ctrl+alt+p",
         "mac": "cmd+alt+p",
-        "when": "editorTextFocus && editorLangId == 'c'"
+        "when": "editorTextFocus && editorLangId == 'cooma'"
       }
     ],
     "languages": [
