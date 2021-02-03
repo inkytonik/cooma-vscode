@@ -11,6 +11,7 @@ export namespace Monto {
         name: string;
         language: string;
         content: string;
+        append: boolean;
         rangeMap: RangeEntry[];
         rangeMapRev: RangeEntry[];
 
@@ -41,7 +42,16 @@ export namespace Monto {
 
     function saveProduct(product: Product) {
         let uri = productToTargetUri(product);
-        products.set(uri.toString(), product);
+        if (product.append) {
+            let oldProduct = products.get(uri.toString());
+            if (oldProduct) {
+                oldProduct.content = oldProduct.content + product.content;
+            } else {
+                products.set(uri.toString(), product);
+            }
+        } else {
+            products.set(uri.toString(), product);
+        }
         product.handleSelectionChange = false;
         montoProvider.onDidChangeEmitter.fire(uri);
     }
@@ -62,6 +72,7 @@ export namespace Monto {
                 name: "",
                 language: "",
                 content: "",
+                append: false,
                 rangeMap: [dummyRange],
                 rangeMapRev: [dummyRange],
                 handleSelectionChange: false
