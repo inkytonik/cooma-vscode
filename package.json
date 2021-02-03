@@ -83,6 +83,11 @@
           "default": false,
           "description": "Show the source abstract syntax tree from the Cooma compiler."
         },
+        "cooma.showTrace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show the trace of the intermediate representation execution."
+        },
         "cooma.updateOnChange": {
           "type": "boolean",
           "default": false,
