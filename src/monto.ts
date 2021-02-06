@@ -42,18 +42,55 @@ export namespace Monto {
 
     function saveProduct(product: Product) {
         let uri = productToTargetUri(product);
+        let uriStr = uri.toString();
         if (product.append) {
-            let oldProduct = products.get(uri.toString());
-            if (oldProduct) {
-                oldProduct.content = oldProduct.content + product.content;
+            let oldProduct = products.get(uriStr);
+            if (oldProduct === undefined) {
+                products.set(uriStr, product);
             } else {
-                products.set(uri.toString(), product);
+                let len = oldProduct.content.length;
+                oldProduct.content = oldProduct.content + product.content;
+                oldProduct.rangeMap = merge(oldProduct.rangeMap, product.rangeMap, len);
+                oldProduct.rangeMapRev = oldProduct.rangeMapRev.concat(shiftRev(product.rangeMapRev, len));
             }
         } else {
-            products.set(uri.toString(), product);
+            products.set(uriStr, product);
         }
         product.handleSelectionChange = false;
         montoProvider.onDidChangeEmitter.fire(uri);
+    }
+
+    function merge(oldMap: RangeEntry[], newMap: RangeEntry[], offset: number): RangeEntry[] {
+        newMap.forEach(entry =>
+            entry.targets.forEach(range =>
+                shiftRange(range, offset)
+            )
+        );
+        if (oldMap.length === 0) {
+            return newMap;
+        } else {
+            newMap.forEach(newEntry =>
+                oldMap.forEach(oldEntry => {
+                    if (oldEntry.source.start === newEntry.source.start &&
+                        oldEntry.source.end === newEntry.source.end) {
+                        oldEntry.targets = oldEntry.targets.concat(newEntry.targets);
+                    }
+                })
+            );
+            return oldMap;
+        }
+    }
+
+    function shiftRev(map: RangeEntry[], offset: number): RangeEntry[]{
+        map.forEach(entry =>
+            shiftRange(entry.source, offset)
+        );
+        return map;
+    }
+
+    function shiftRange(range: OffsetRange, offset : number) {
+        range.start += offset;
+        range.end += offset;
     }
 
     export function showProduct(product: Product) {
