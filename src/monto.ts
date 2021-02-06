@@ -225,9 +225,9 @@ export namespace Monto {
                     if (targetSourceUri.toString() === sourceUri) {
                         let product = getProduct(targetUri);
                         let targetSelections =
-                            flatten(sourceSelections.map(sourceSelection => {
-                                return getSelections(product, sourceEditor, sourceSelection, targetEditor, true);
-                            }));
+                            flatten(sourceSelections.map(sourceSelection =>
+                                getSelections(product, sourceEditor, sourceSelection, targetEditor, true)
+                            ));
                         if (targetSelections.length > 0) {
                             product.handleSelectionChange = false;
                             showSelections(targetUri, targetEditor, targetSelections, true);
@@ -248,10 +248,9 @@ export namespace Monto {
             let product = getProduct(targetUri);
             if (product.handleSelectionChange) {
                 let sourceSelections =
-                    flatten(change.selections.map(targetSelection => {
-                        let x = getSelections(product, targetEditor, targetSelection, sourceEditor, false);
-                        return x;
-                    }));
+                    flatten(change.selections.map(targetSelection =>
+                        getSelections(product, targetEditor, targetSelection, sourceEditor, false)
+                    ));
                 if (sourceSelections.length > 0) {
                     showSelections(sourceUri, sourceEditor, sourceSelections, false);
                 }
@@ -267,7 +266,7 @@ export namespace Monto {
         return ranges.reduce((a, b) => a.concat(b));
     }
 
-    function getSelections(product : Product, fromEditor: TextEditor, fromSelection: Selection, toEditor: TextEditor, forward: boolean): Range[] {
+    function getSelections(product: Product, fromEditor: TextEditor, fromSelection: Selection, toEditor: TextEditor, forward: boolean): Range[] {
         let fromOffset = fromEditor.document.offsetAt(fromSelection.start);
         let entry = findContainingRangeEntry(product, fromOffset, forward);
         if (entry === undefined) {
@@ -285,9 +284,9 @@ export namespace Monto {
     }
 
     function targetsToSelections(editor: TextEditor, targets: OffsetRange[]): Range[] {
-        return targets.map(target => {
-            return targetToSelection(editor, target);
-        });
+        return targets.map(target =>
+            targetToSelection(editor, target)
+        );
     }
 
     function targetToSelection(editor: TextEditor, target: OffsetRange): Range {
