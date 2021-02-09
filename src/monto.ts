@@ -93,8 +93,8 @@ export namespace Monto {
         range.end += offset;
     }
 
-    export function showProduct(product: Product) {
-        openInEditor(productToTargetUri(product), true);
+    async function showProduct(product: Product) {
+        await openInEditor(productToTargetUri(product), true);
     }
 
     function getProduct(uri: Uri): Product {
