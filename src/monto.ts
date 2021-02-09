@@ -41,23 +41,27 @@ export namespace Monto {
     let columns = new Map<string, ViewColumn>();
 
     function saveProduct(product: Product) {
-        let uri = productToTargetUri(product);
-        let uriStr = uri.toString();
+        const uri = productToTargetUri(product);
+        const uriStr = uri.toString();
+        product.handleSelectionChange = false;
         if (product.append) {
-            let oldProduct = products.get(uriStr);
-            if (oldProduct === undefined) {
-                products.set(uriStr, product);
+            if (product.content === '') {
+                montoProvider.onDidChangeEmitter.fire(uri);
             } else {
-                let len = oldProduct.content.length;
-                oldProduct.content = oldProduct.content + product.content;
-                oldProduct.rangeMap = merge(oldProduct.rangeMap, product.rangeMap, len);
-                oldProduct.rangeMapRev = oldProduct.rangeMapRev.concat(shiftRev(product.rangeMapRev, len));
+                const oldProduct = products.get(uriStr);
+                if (oldProduct === undefined) {
+                    products.set(uriStr, product);
+                } else {
+                    const len = oldProduct.content.length;
+                    oldProduct.content = oldProduct.content.concat(product.content);
+                    oldProduct.rangeMap = merge(oldProduct.rangeMap, product.rangeMap, len);
+                    oldProduct.rangeMapRev = oldProduct.rangeMapRev.concat(shiftRev(product.rangeMapRev, len));
+                }
             }
         } else {
             products.set(uriStr, product);
+            showProduct(product);
         }
-        product.handleSelectionChange = false;
-        montoProvider.onDidChangeEmitter.fire(uri);
     }
 
     function merge(oldMap: RangeEntry[], newMap: RangeEntry[], offset: number): RangeEntry[] {
@@ -194,7 +198,6 @@ export namespace Monto {
         client.onReady().then(_ => {
             client.onNotification(PublishProduct.type, product => {
                 saveProduct(product);
-                showProduct(product);
             });
         });
     }
