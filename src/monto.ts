@@ -98,9 +98,9 @@ export namespace Monto {
     }
 
     function getProduct(uri: Uri): Product {
-        let p = products.get(uri.toString());
+        const p = products.get(uri.toString());
         if (p === undefined) {
-            let dummyRange = {
+            const dummyRange = {
                 source: { start: 0, end: 0 },
                 targets: [{ start: 0, end: 0 }]
             };
@@ -120,12 +120,12 @@ export namespace Monto {
     }
 
     function productToTargetUri(product: Product): Uri {
-        let path = Uri.parse(product.uri).path;
+        const path = Uri.parse(product.uri).path;
         return Uri.parse(`monto:${path}-${product.name}.${product.language}`);
     }
 
     function targetUriToSourceUri(uri: Uri): Uri {
-        let path = uri.path.substring(0, uri.path.lastIndexOf("-"));
+        const path = uri.path.substring(0, uri.path.lastIndexOf("-"));
         return Uri.parse(`file:${path}`);
     }
 
@@ -137,7 +137,7 @@ export namespace Monto {
         onDidChangeEmitter = new EventEmitter<Uri>();
 
         provideTextDocumentContent(uri: Uri): string {
-            let product = products.get(uri.toString());
+            const product = products.get(uri.toString());
             if (product === undefined) {
                 return "unknown content";
             } else {
@@ -213,18 +213,18 @@ export namespace Monto {
     // Source to target linking
 
     function selectLinkedTargetRanges() {
-        let editor = window.activeTextEditor;
+        const editor = window.activeTextEditor;
         if (editor !== undefined) {
-            let sourceEditor = editor;
-            let sourceUri = sourceEditor.document.uri.toString();
-            let sourceSelections = sourceEditor.selections;
+            const sourceEditor = editor;
+            const sourceUri = sourceEditor.document.uri.toString();
+            const sourceSelections = sourceEditor.selections;
             window.visibleTextEditors.forEach(targetEditor => {
                 if (isMontoEditor(targetEditor)) {
-                    let targetUri = targetEditor.document.uri;
-                    let targetSourceUri = targetUriToSourceUri(targetUri);
+                    const targetUri = targetEditor.document.uri;
+                    const targetSourceUri = targetUriToSourceUri(targetUri);
                     if (targetSourceUri.toString() === sourceUri) {
-                        let product = getProduct(targetUri);
-                        let targetSelections =
+                        const product = getProduct(targetUri);
+                        const targetSelections =
                             flatten(sourceSelections.map(sourceSelection =>
                                 getSelections(product, sourceEditor, sourceSelection, targetEditor, true)
                             ));
@@ -241,13 +241,13 @@ export namespace Monto {
     // Target to source linking
 
     function selectLinkedSourceRanges(change: TextEditorSelectionChangeEvent) {
-        let targetEditor = change.textEditor;
-        let targetUri = targetEditor.document.uri;
-        let sourceUri = targetUriToSourceUri(targetUri);
+        const targetEditor = change.textEditor;
+        const targetUri = targetEditor.document.uri;
+        const sourceUri = targetUriToSourceUri(targetUri);
         openInEditor(sourceUri, false).then(sourceEditor => {
-            let product = getProduct(targetUri);
+            const product = getProduct(targetUri);
             if (product.handleSelectionChange) {
-                let sourceSelections =
+                const sourceSelections =
                     flatten(change.selections.map(targetSelection =>
                         getSelections(product, targetEditor, targetSelection, sourceEditor, false)
                     ));
@@ -267,8 +267,8 @@ export namespace Monto {
     }
 
     function getSelections(product: Product, fromEditor: TextEditor, fromSelection: Selection, toEditor: TextEditor, forward: boolean): Range[] {
-        let fromOffset = fromEditor.document.offsetAt(fromSelection.start);
-        let entry = findContainingRangeEntry(product, fromOffset, forward);
+        const fromOffset = fromEditor.document.offsetAt(fromSelection.start);
+        const entry = findContainingRangeEntry(product, fromOffset, forward);
         if (entry === undefined) {
             return [new Range(0, 0, 0, 0)];
         } else {
@@ -277,7 +277,7 @@ export namespace Monto {
     }
 
     function findContainingRangeEntry(product: Product, offset: number, forward: boolean): RangeEntry| undefined {
-        let map = forward ? product.rangeMap : product.rangeMapRev;
+        const map = forward ? product.rangeMap : product.rangeMapRev;
         return map.find(entry =>
             (entry.source.start <= offset) && (offset < entry.source.end)
         );
@@ -290,16 +290,16 @@ export namespace Monto {
     }
 
     function targetToSelection(editor: TextEditor, target: OffsetRange): Range {
-        let s = editor.document.positionAt(target.start);
-        let f = editor.document.positionAt(target.end);
+        const s = editor.document.positionAt(target.start);
+        const f = editor.document.positionAt(target.end);
         return new Range(s, f);
     }
 
     function viewColumn(uri: Uri, isTarget: Boolean): ViewColumn {
-        let key = uri.toString();
-        let column = columns.get(key);
+        const key = uri.toString();
+        const column = columns.get(key);
         if (column === undefined) {
-            let original = isTarget ? ViewColumn.Two : ViewColumn.One;
+            const original = isTarget ? ViewColumn.Two : ViewColumn.One;
             columns.set(key, original);
             return original;
         } else {
