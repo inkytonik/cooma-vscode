@@ -60,6 +60,7 @@ export namespace Monto {
             }
         } else {
             products.set(uriStr, product);
+            await showProduct(product);
             montoProvider.onDidChangeEmitter.fire(uri);
             showProduct(product);
         }
