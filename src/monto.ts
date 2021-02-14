@@ -40,7 +40,7 @@ export namespace Monto {
     // Map all uri strings to the view column in which they are displayed
     let columns = new Map<string, ViewColumn>();
 
-    function saveProduct(product: Product) {
+    async function saveProduct(product: Product) {
         const uri = productToTargetUri(product);
         const uriStr = uri.toString();
         product.handleSelectionChange = false;
@@ -62,7 +62,6 @@ export namespace Monto {
             products.set(uriStr, product);
             await showProduct(product);
             montoProvider.onDidChangeEmitter.fire(uri);
-            showProduct(product);
         }
     }
 
@@ -173,12 +172,11 @@ export namespace Monto {
             }
         });
 
-        window.onDidChangeVisibleTextEditors(editors => {
-            editors.forEach(editor => {
-                if (editor.viewColumn !== undefined) {
-                    columns.set(editor.document.uri.toString(), editor.viewColumn);
-                }
-            });
+        window.onDidChangeTextEditorViewColumn(event => {
+            const editor = event.textEditor;
+            if (editor.viewColumn !== undefined) {
+                columns.set(editor.document.uri.toString(), editor.viewColumn);
+            }
         });
 
         workspace.onDidChangeConfiguration(event => {
