@@ -4,6 +4,7 @@
 
 - Fix wrong language in shortcut setting for selectLinkedEditors command
 - Sync title for selectLinkedEditors to "Select Linked Editors"
+- Move to npm-published version of Monto VSCode module
 
 ## [0.4.0]
 
