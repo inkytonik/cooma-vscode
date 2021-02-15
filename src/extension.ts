@@ -2,7 +2,7 @@
 
 import { commands, ExtensionContext, window, workspace } from 'vscode';
 import { ExitNotification, LanguageClient, LanguageClientOptions, ServerOptions, ShutdownRequest } from 'vscode-languageclient';
-import { Monto } from './monto';
+import { Monto } from 'monto-vscode';
 
 let client: LanguageClient;
 
