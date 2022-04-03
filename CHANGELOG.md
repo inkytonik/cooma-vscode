@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.6.0]
+
+- Bump minimist from 1.2.5 to 1.2.6 (security alert)
+
 ## [0.5.0]
 
 - Fix wrong language in shortcut setting for selectLinkedEditors command
